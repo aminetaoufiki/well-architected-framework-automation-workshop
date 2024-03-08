@@ -1,0 +1,582 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+# This script contains parts that have been modified from the following sources
+#  https://github.com/aws-samples/aws-cloud9-bootstrapping-example/blob/main/example_instancestack.yaml
+#  https://github.com/prowler-cloud/prowler/blob/master/iam/create_role_to_assume_cfn.yaml
+# Thanks and Acknowledgements to the Prowler Team for use of their script.
+
+Description: Resources required for running Well-Architected review automation.
+
+Parameters:
+  CallingUserArn:
+    Type: String
+    Description: ARN of the calling user. If not provided, then this defaults to defining default Account Users for AWS Workshop Studio 
+
+  WAFRScanRoleName:
+    Type: String
+    Description: Name of the IAM role that will have these policies attached
+    Default: 'WAFRScanRole'
+
+  C9RoleName: 
+    Type: String
+    Description: Name of the Cloud9 role assigned to the Cloud9 Instance
+    AllowedPattern : "[a-zA-Z0-9]+"
+
+Conditions: 
+  IsCallingUserArnEmpty: !Equals [!Ref "CallingUserArn", ""]
+
+Resources:
+################## WAFR SCANNING ROLE #####################
+  IAMRoleWAFRScan:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub ${WAFRScanRoleName}
+      # This is 12h that is maximum allowed, Minimum is 3600 = 1h
+      MaxSessionDuration: 43200
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !Sub ${AWS::AccountId}
+            Action: 'sts:AssumeRole'
+            Condition:
+              StringLike:
+                "aws:PrincipalArn":
+                - !If
+                  - IsCallingUserArnEmpty
+# Note: This role is provisioned by the AWS Workshop Studio accounts, but can be removed or commented out, if not needed
+                  - !Sub "arn:aws:iam::${AWS::AccountId}:role/WSParticipantRole"
+                  - !Join ['', [!Sub 'arn:aws:iam::${AWS::AccountId}:role/', !Select [1, !Split ['/', !Sub '${CallingUserArn}']]]]
+# Note: This role is provisioned by the AWS Workshop Studio accounts, but can be removed or commented out, if not needed
+                - !Sub "arn:aws:iam::${AWS::AccountId}:role/WSOpsRole"
+# Note: This role is provisioned by the AWS Well-Architected Review Acceleration Workshop, but can be removed or commented out, if not needed
+                - !Sub "arn:aws:iam::${AWS::AccountId}:role/${C9RoleName}"
+                - !Sub "arn:aws:iam::${AWS::AccountId}:role/WAFRCustomerRole"
+            ## In case MFA is required uncomment lines below and read https://github.com/prowler-cloud/prowler#run-prowler-with-mfa-protected-credentials
+            # Condition:
+            #   Bool:
+            #     'aws:MultiFactorAuthPresent': true
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/ReadOnlyAccess'
+# If you need to increase security access, the ViewOnlyAccess and Security roles might be an alternative to using the ReadOnlyAccess.
+# This will however cause certain scan configurations to fail.
+#        - 'arn:aws:iam::aws:policy/SecurityAudit'
+#        - 'arn:aws:iam::aws:policy/job-function/ViewOnlyAccess'
+        - 'arn:aws:iam::aws:policy/WellArchitectedConsoleFullAccess'
+        - 'arn:aws:iam::aws:policy/AWSBillingReadOnlyAccess'
+        - 'arn:aws:iam::aws:policy/AWSCloudShellFullAccess'
+        - 'arn:aws:iam::aws:policy/AWSCloud9Administrator'
+      Policies:
+        - PolicyName: ProwlerPrivilegesPolicy
+# Note: this is aligned with the contents of the following Prowler repository file:
+# https://raw.githubusercontent.com/prowler-cloud/prowler/master/iam/prowler-additions-policy.json
+          PolicyDocument:
+            Version : '2012-10-17'
+            Statement:
+            - Effect: Allow
+              Action:
+                - 'account:Get*'
+                - 'appstream:DescribeFleets'
+                - 'ds:Get*'
+                - 'ds:Describe*'
+                - 'ds:List*'
+                - 'ec2:GetEbsEncryptionByDefault'
+                - 'ecr:Describe*'
+                - 'elasticfilesystem:DescribeBackupPolicy'
+                - 'glue:GetConnections'
+                - 'glue:GetSecurityConfiguration'
+                - 'glue:SearchTables'
+                - 'lambda:GetFunction'
+                - 's3:GetAccountPublicAccessBlock'
+                - 'shield:DescribeProtection'
+                - 'shield:GetSubscriptionState'
+                - 'ssm:GetDocument'
+                - 'support:Describe*'
+                - 'tag:GetTagKeys'
+              Resource: '*'
+            - Effect: Allow
+              Action:
+              - account:Get*
+              - appstream:DescribeFleets
+              - codeartifact:ListRepositories
+              - codebuild:BatchGetBuilds
+              - ds:Get*
+              - ds:Describe*
+              - ds:List*
+              - ec2:GetEbsEncryptionByDefault
+              - ecr:Describe*
+              - elasticfilesystem:DescribeBackupPolicy
+              - glue:GetConnections
+              - glue:GetSecurityConfiguration
+              - glue:SearchTables
+              - lambda:GetFunction
+              - macie2:GetMacieSession
+              - s3:GetAccountPublicAccessBlock
+              - s3:GetEncryptionConfiguration
+              - s3:GetPublicAccessBlock
+              - shield:DescribeProtection
+              - shield:GetSubscriptionState
+              - ssm:GetDocument
+              - support:Describe*
+              - tag:GetTagKeys
+              Sid: AllowMoreReadForProwler
+              Resource: "*"
+            - Effect: Allow
+              Action:
+              - apigateway:GET
+              Resource:
+              - arn:aws:apigateway:*::/restapis/*
+# Note: this is the contents of the following Prowler repository file
+# https://raw.githubusercontent.com/prowler-cloud/prowler/master/iam/prowler-security-hub.json
+            - Effect: Allow
+              Action:
+              - 'securityhub:BatchImportFindings'
+              - 'securityhub:GetFindings'
+              Resource: "*"
+# this is an addition for Former2 scans
+        - PolicyName: Former2PrivilegesPolicy
+          PolicyDocument:
+            Version : '2012-10-17'
+            Statement:
+            - Effect: Allow
+              Action:
+              - profile:List*
+              - iam:List*
+              - billingconductor:List*
+              - wisdom:List*
+              Resource: "*"
+# enable generating iam credential reports - recommended best-practice for Steampipe
+        - PolicyName: RequiredIAMPolicies
+          PolicyDocument:
+            Version : '2012-10-17'
+            Statement:
+            - Sid: "IAMGenerateCredentialReport"
+              Effect: Allow
+              Action:
+              - 'iam:GenerateCredentialReport'
+              - 'iam:GetCredentialReport'
+              Resource: "*"
+            - Sid: "EnableCreateWAWorkload"
+              Effect: Allow
+              Action: "wellarchitected:CreateWorkload"
+              Resource: "*"
+            - Sid: "AllowS3List"
+              Effect: Allow
+              Action:
+              - "s3:List*"
+              - "s3:Put*"
+              - "s3:Delete*"
+              Resource: !GetAtt S3BucketWAFRData.Arn
+            - Sid: "AllowS3ObnectActions"
+              Effect: Allow
+              Action: "s3:*Object"
+              Resource: !Join ['', [!GetAtt S3BucketWAFRData.Arn, '/*']]
+
+###################### WAFR S3 REPORT Bucket #############################
+  S3BucketWAFRData:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Join ['-', ['wafr-data', !Ref AWS::AccountId]]
+      # note: could add !Ref AWS::StackId to ensure name is unique
+      AccessControl: Private
+      NotificationConfiguration:
+        LambdaConfigurations:
+          - Function: !GetAtt LambdaFunctionWAFRS3IndexGen.Arn
+            Event: 's3:ObjectCreated:*'
+          - Function: !GetAtt LambdaFunctionWAFRS3IndexGen.Arn
+            Event: 's3:ObjectRemoved:*'
+# TODO Filter execution to exclude updates to index.html - otherwise we create infnite loop
+
+  S3BucketPolicyWAFRReports:
+    Type: AWS::S3::BucketPolicy
+    DependsOn:
+      - S3BucketWAFRData
+      - CloudFrontDistributionWAFRS3Reports
+    Properties:
+      Bucket: !Ref S3BucketWAFRData
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: "GrantCloudFrontAccess"
+            Effect: "Allow"
+            Principal:
+              Service: "cloudfront.amazonaws.com"
+            Action:
+            - "s3:GetObject"
+            Resource: !Sub "arn:aws:s3:::${S3BucketWAFRData}/*"
+            Condition: 
+              StringEquals:
+                AWS:SourceArn: !Sub "arn:aws:cloudfront::${AWS::AccountId}:distribution/${CloudFrontDistributionWAFRS3Reports}"
+          - Sid: "AllowAllObjectActions"
+            Effect: Allow
+            Principal:
+              AWS: !Sub ${AWS::AccountId}
+            Action: "s3:*Object"
+            Resource: !Join ['', [!GetAtt S3BucketWAFRData.Arn, '/*']]
+#            Condition:
+#              StringLike:
+#                "aws:PrincipalArn":
+#                - !Sub "arn:aws:iam::${AWS::AccountId}:role/IAMRoleWAFRScan"
+#                - !Sub "arn:aws:sts::${AWS::AccountId}:assumed-role/IAMRoleWAFRScan/*"
+          - Sid: "AllowListObjectsInBucket"
+            Effect: Allow
+            Principal:
+              AWS: !Sub ${AWS::AccountId}
+            Action:
+            - "s3:List*"
+            - "s3:Put*"
+            - "s3:Delete*"
+            Resource: !GetAtt S3BucketWAFRData.Arn
+#            Condition:
+#              StringLike:
+#                "aws:PrincipalArn":
+#                - !Sub "arn:aws:iam::${AWS::AccountId}:role/IAMRoleWAFRScan"
+#                - !Sub "arn:aws:sts::${AWS::AccountId}:assumed-role/IAMRoleWAFRScan/*"
+          - Sid: "GrantBillingReportsGet"
+            Effect: Allow
+            Principal:
+              Service: billingreports.amazonaws.com
+            Action:
+            - "s3:GetBucketAcl"
+            - "s3:GetBucketPolicy"
+            Resource: !GetAtt S3BucketWAFRData.Arn
+#            Condition:
+#              StringEquals:
+#                awsSourceArn: !Sub "arn:aws:cur:${AWS::Region}:${AWS::AccountId}:definition/*"
+#                awsSourceAccount: "${AWS::AccountId}"
+          - Sid: "GrantBillingReportsPut"
+            Effect: Allow
+            Principal:
+              Service: billingreports.amazonaws.com
+            Action:
+            - "s3:PutObject"
+            Resource: !Sub "${S3BucketWAFRData.Arn}/*"
+#            Condition:
+#              StringEquals:
+#                awsSourceArn: !Sub "arn:aws:cur:${AWS::Region}:${AWS::AccountId}:definition/*"
+#                awsSourceAccount: "${AWS::AccountId}"
+
+######################## WAFR S3 Index Lambda Function ####################
+  LambdaFunctionWAFRS3IndexGen:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: wafr-lambda-s3-index-generator
+      Runtime: python3.8
+      Handler: index.lambda_handler
+      Role: !GetAtt IAMRoleLambdaFunctionWAFRS3IndexGen.Arn
+      Code:
+        ZipFile: |
+          import logging
+          import boto3
+          import os
+          from urllib.parse import unquote_plus
+
+          def get_file_icon(file_key):
+              file_extension = file_key.split('.')[-1].lower()
+              
+              if file_extension in ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'ico', 'webp', 'svg']:
+                  return 'image'
+              elif file_extension in ['pdf']:
+                  return 'picture_as_pdf'
+              elif file_extension in ['doc', 'docx', 'odt', 'rtf']:
+                  return 'description'
+              elif file_extension in ['xls', 'xlsx', 'ods', 'csv', 'tsv']:
+                  return 'grid_on'
+              elif file_extension in ['ppt', 'pptx', 'odp']:
+                  return 'slideshow'
+              elif file_extension in ['txt', 'log', 'md', 'json', 'xml']:
+                  return 'text_snippet'
+              elif file_extension in ['zip', 'rar', '7z', 'tar', 'gz', 'bz2']:
+                  return 'archive'
+              else:
+                  return 'insert_drive_file'
+
+          def get_workload_name(waclient,workloadid):
+              try:
+                  response=waclient.get_workload(WorkloadId=workloadid)
+              except:
+                  workloadname = ""
+              else:
+                  workloadname = response['Workload']['WorkloadName']
+              return workloadname
+              
+
+          def lambda_handler(event, context):
+
+              session=boto3.session.Session()
+              s3 = boto3.client('s3')
+              waclient = boto3.client('wellarchitected', session.region_name)
+
+              index_key = 'index.html'
+              bucket = event["Records"][0]["s3"]["bucket"]["name"]
+              objectkey = event["Records"][0]["s3"]["object"]["key"]
+              prefix = objectkey.split('/')[0]
+              filekey = objectkey.split('/')[-1]
+              workloadname = ""
+              if prefix == filekey:
+                  prefix = ''
+                  workloadname = ""
+              else:
+                  workloadname = get_workload_name(waclient,prefix)
+              
+              if prefix == "":
+                  tempkey = index_key
+              else:
+                  tempkey = prefix + "/" + index_key
+
+              # if file change is on index.html... 
+              if objectkey.endswith(index_key):
+              # then don't update the index.html; just return 202 with message
+                  return {
+                      'statusCode': 202,
+                      'body': 'skipping index.html update as it is not required'
+                  }
+              else:
+              # else construct and write index.html to the given prefix
+              
+                  # List objects in the specified S3 bucket
+                  if prefix == "":
+                      objectstemp = s3.list_objects_v2(Bucket=bucket, Delimiter="/", MaxKeys=500)
+                      objects = [obj["Key"] for obj in objectstemp["Contents"]]
+                      folders = [fld["Prefix"] for fld in objectstemp["CommonPrefixes"]]
+                      objects = objects + folders
+                  else:
+                      objectstemp = s3.list_objects_v2(Bucket=bucket, Prefix=prefix, MaxKeys=500)
+                      objects = [obj["Key"] for obj in objectstemp["Contents"]]
+                  
+                  # sort objects
+                  objects.sort()
+                  
+                  # remove unnecessary files from the list
+                  objects[:] = (value for value in objects if value != "aws-programmatic-access-test-object")
+                  
+                  # Build page title
+                  if workloadname == "":
+                      page_title = f'Well-Architected Report Bucket -&nbsp<i>{bucket}</i>'
+                  else:
+                      page_title = f'Well-Architected Report -&nbsp<i>{workloadname}</i>&nbsp(ID&nbsp<i>{prefix}</i>)'
+                      
+                  # Build index.html content
+                  index_content = '''
+                  <!DOCTYPE html>
+                  <html>
+                    <head>
+                      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+                      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+                      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+                      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                      <style type="text/css">
+                        .container {
+                          position: absolute;
+                          right: 5%;
+                          left: 5%;
+                        }
+                        .navbar-brand {
+                          font-size: x-large;
+                          display: flex;
+                          align-items: center;
+                        }
+                        .material-icons {
+                          font-size: xx-large !important;
+                          margin-right: 20px;
+                        }
+                        .list-group-item {
+                          display: flex;
+                          align-items: center;
+                        }
+                        .file-icon {
+                          font-size: x-large;
+                          margin-right: 10px;
+                        }
+                        .navbar {
+                          background-color: #202020; /* Dark Grey */
+                        }
+                      </style>
+                    </head>'''
+                  
+                  index_content += f'''  
+                    <body>
+                      <nav class="navbar navbar-expand-sm navbar-dark">
+                        <a class="navbar-brand" href="#">
+                          <img src="https://www.wellarchitectedlabs.com/images/wa-2.png" alt="WALogo" width="50">
+                          {page_title}
+                        </a>
+                      </nav>
+                      <div class="container">
+                        <ul id='listkeys' class="list-group">'''
+              
+                  for file_key in objects:
+                      if file_key.endswith("index.html"):
+                          continue
+                      file_url = f'{file_key}'
+                      # reset variables
+                      caption = ''
+                      workloadname = ''
+                      # determine the icon class
+                      icon_class = get_file_icon(file_url)
+                      icon_content = f'<i class="material-icons file-icon">{icon_class}</i>'
+                      # if the URL is a potential workload id, get the workloadname
+                      if prefix == "" and file_key.endswith('/'):
+                        workloadname = get_workload_name(waclient,file_key.split('/')[0])
+                      # set a caption if the URL is a workload
+                      if workloadname != "":
+                          caption= f'&nbsp (Note: directory for report on Well-Architected Workload <i>{workloadname}</i>)'
+                      # set a caption if the URL is the cost&usage report directory
+                      elif file_key == "wafr-cur/":
+                          caption = f'&nbsp (Note: directory for Cost and Usage Reports)'
+                      # remove the prefix, if the file_key is not at root level
+                      if file_url.split('/')[0] == prefix:
+                          file_url = "/".join(file_url.split('/')[1:])
+                      # if url is of an svg file, then set the link content to show the svg and remove the icon
+                      if file_key.lower().endswith('.svg'):
+                          link_content = f'<img src="{file_url}" alt="{file_url}">'
+                          icon_content = ''
+                      # otherwise just write the file_key
+                      else:
+                          link_content = f'{file_url}'
+                      if file_key.endswith('/'):
+                          hreflink = f'{file_url}index.html'
+                      else:
+                          hreflink = f'{file_url}'
+                      # end of the for loop, adding the content items to the page
+                      index_content += f'''
+                      <li class="list-group-item">
+                        {icon_content}
+                        <a href="{hreflink}">{link_content}</a>{caption}
+                      </li>'''
+                  
+                  index_content += '''
+                    </ul>
+                  </div>
+                </body>
+              </html>'''
+                  
+                  # Now write the update to the index_key in the prefix
+                  if prefix == "":
+                      targetkey = index_key
+                  else:
+                      targetkey = f'{prefix}/{index_key}'
+                  s3.put_object(Bucket=bucket, Key=targetkey, Body=index_content, ContentType='text/html')
+                  return { 
+                      'statusCode': 200,
+                      'body': 'index.html created successfully'
+                  }
+
+  IAMRoleLambdaFunctionWAFRS3IndexGen:
+    Type: "AWS::IAM::Role"
+    Properties:
+        RoleName: "wafr-lambda-access-role-s3-index-gen"
+        AssumeRolePolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+                - Effect: "Allow"
+                  Principal:
+                      Service: "lambda.amazonaws.com"
+                  Action: "sts:AssumeRole"
+        ManagedPolicyArns:
+          - 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+        Policies:
+            - PolicyName: "s3-read-write-access"
+              PolicyDocument:
+                  Version: "2012-10-17"
+                  Statement:
+                      - Sid: "ListObjectsInBucket"
+                        Effect: "Allow"
+                        Action:
+                            - "s3:ListBucket"
+                        Resource:
+# note: we are calculating the s3 bucket resource definition here, rather than using a REF, to prevent a circular dependency
+                          !Join ['', ['arn:aws:s3:::', !Join ['-',['wafr-data',!Ref AWS::AccountId]]]]
+                      - Sid: "AllObjectActions"
+                        Effect: "Allow"
+                        Action:
+                            - "s3:*Object"
+                        Resource:
+# note: we are calculating the s3 bucket resource definition here, rather than using a REF, to prevent a circular dependency
+                          !Join ['', ['arn:aws:s3:::', !Join ['-',['wafr-data',!Ref AWS::AccountId]],'/*']]
+                      - Sid: "AllowWAAccess"
+                        Effect: "Allow"
+                        Action:
+                            - "wellarchitected:*"
+                        Resource: "*"
+
+  LambdaPermissionWAFRS3IndexGen:
+    Type: 'AWS::Lambda::Permission'
+    Properties:
+      Action: 'lambda:InvokeFunction'
+      Principal: 's3.amazonaws.com'
+      FunctionName: !Ref LambdaFunctionWAFRS3IndexGen
+      SourceAccount: !Ref 'AWS::AccountId'
+# note: we are calculating the s3 bucket resource definition here, rather than using a REF, to prevent a circular dependency
+      SourceArn: !Join ['', ['arn:aws:s3:::', !Join ['-',['wafr-data',!Ref AWS::AccountId]]]]
+
+  LogsLogGroupLambdaWAFRS3IndexGen:
+    Type: 'AWS::Logs::LogGroup'
+    Properties:
+#      LogGroupName: !Sub '/aws/lambda/${LambdaFunctionWAFRS3IndexGen}'
+      RetentionInDays: 3
+
+###################### CLOUDFRONT DISTRIBUTION FOR ACCESSING WAFR S3 REPORT BUCKET #############################
+  CloudFrontDistributionWAFRS3Reports:
+    Type: AWS::CloudFront::Distribution
+    DependsOn: S3BucketWAFRData
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        DefaultRootObject: 'index.html'
+        PriceClass: PriceClass_All
+        Origins:
+          - DomainName: !GetAtt S3BucketWAFRData.RegionalDomainName
+            Id: S3Origin
+            OriginAccessControlId: !GetAtt CloudFrontOriginAccessControl.Id
+            S3OriginConfig:
+              OriginAccessIdentity: ""
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - GET
+            - HEAD
+          CachedMethods:
+            - GET
+            - HEAD
+          Compress: true
+          ForwardedValues:
+            Cookies:
+              Forward: none
+            QueryString: false
+          TargetOriginId: S3Origin
+          ViewerProtocolPolicy: allow-all
+          DefaultTTL: 1
+          MinTTL: 1
+          MaxTTL: 1
+
+  CloudFrontOriginAccessControl:
+    Type: "AWS::CloudFront::OriginAccessControl"
+    DependsOn: S3BucketWAFRData
+    Properties:
+        OriginAccessControlConfig: 
+            Name: !Ref S3BucketWAFRData
+            OriginAccessControlOriginType: "s3"
+            SigningBehavior: "always"
+            SigningProtocol: "sigv4"
+
+
+Outputs:
+
+  WAFRScanRoleARN:
+    Description: ARN of the IAMRoleWAFRScan
+    Value: !GetAtt IAMRoleWAFRScan.Arn
+
+  CloudFrontURL:
+    Value: !Join [ "", [ "https://", !GetAtt CloudFrontDistributionWAFRS3Reports.DomainName ]]
+    Description: The URL of the Cloudfront distribution.
+
+  WAFRDataBucket:
+    Value: !Ref S3BucketWAFRData
+    Description: The name of the S3 bucket to store WAFR  reports.
+
+  S3IndexGeneratorLambdaFunctionArn:
+    Value: !GetAtt LambdaFunctionWAFRS3IndexGen.Arn
+    Description: The ARN of Lambda function that creates the index.html file.
