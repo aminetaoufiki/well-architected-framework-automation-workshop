@@ -410,3 +410,132 @@ steampipe dashboard --dashboard-port 8080
 
 > [!TIP]
 > Once you have finished viewing the dashboard, you can close the preview window, and exit the dashboard service by interrupting the process (use the standard Linux command ctrl-C).
+
+### 2.Prowler Scan
+
+This exercise provides a fast introduction into how to automatically analyse the security state of an AWS account using the open source Security auditing tool [Prowler](https://catalog.workshops.aws/event/dashboard/en-US/workshop/08exercises/03prowler#:~:text=Security%20auditing%20tool-,Prowler%C2%A0,-.).
+
+In this exercise, we will use Prowler to:
+
+- can the simulated workload account for potential security gaps
+- export the scan results into an easily readable HTML file
+- export the scan results into JSON, for further processing/parsing
+
+#### 2.1.Check that Pyenv and Python has been updated
+
+Check the other Cloud9 cli-terminal tab, to see that Pyenv and Python 3.9.16 have been successfully installed. If the install is completed, please close this terminal Tab, either using the "x" in the Tab title at the top of the screen, or using the standard bash cli-exit keyboard command, "ctrl-D".
+
+Please renew your STS credentials and switch into the "WAFRScanRole" again. See the [Switch Role instructions page](#switch-roles)
+
+#### 2.2.Install Prowler
+
+To setup Prowler in the AWS Cloud9 environment, open the AWS Console with your command-line environment . Use the following commands to setup a the Prowler Tool, together with a recent Python environment:
+
+```bash
+clear ; \
+echo 'Ensure that you are in the "standard" execution directory' ; \
+echo ' (ie ~/environment in Cloud9, ~ in the CloudShell)'; \
+cd ~/environment 2>/dev/null || cd ~ ; \
+echo "Update the shell environment" ; \
+source ~/.bash_profile ; \
+source ~/.bashrc ; \
+echo "Install the Prowler tool" ; \
+python -m pip install --upgrade prowler ; \
+echo -e "\n# Prowler setup\nalias prowler=\"python -m prowler\"" >> ~/.bashrc ; \
+source ~/.bashrc
+```
+
+You can check if the installation was successful by running ```prowler --version```. If this doesn't show a version for the Prowler software, then check the command responses for potential errors and attempt to rectify these errors. Please inform the Workshop instructors or AWS Contacts (noted at the beginning of this documentation), of any issues with the documentation/installation.
+
+#### 2.3.Run a Prowler scan
+
+Run the following command to initiate a simple one-region Prowler scan, only on resources that are are tagged as the "wafr-workload":
+
+```bash
+export current_region=$(aws ec2 describe-availability-zones --query 'AvailabilityZones[0].RegionName' --output text) ; \
+echo "current_region = ${current_region}" ; \
+prowler aws -f ${current_region} \
+  --compliance aws_well_architected_framework_security_pillar_aws \
+  -e macie_is_enabled iam_role_cross_service_confused_deputy_prevention \
+     iam_root_mfa_enabled iam_root_hardware_mfa_enabled \
+  --resource-tags "aws:cloudformation:stack-name=wafr-workload"
+```
+
+Please take note of the ```--resource-tags``` option at the end of the command. By setting the resource-tags filter, you restrict the Prowler scan to just resources that are tagged with the CloudFormation stack-name of "wafr-workload". Leaving this out will scan all resources found using the other filters in the command (ie in this case, all resources in the account and region specified).
+
+If everything is working, you should start seeing a securty scan start, like this:
+
+```shell
+ _ __  _ __ _____      _| | ___ _ __
+| '_ \| '__/ _ \ \ /\ / / |/ _ \ '__|
+| |_) | | | (_) \ V  V /| |  __/ |
+| .__/|_|  \___/ \_/\_/ |_|\___|_|v3.6.1
+|_| the handy cloud security tool
+
+Date: 2023-06-19 13:06:29
+
+This report is being generated using credentials below:
+
+AWS-CLI Profile: [default] AWS Filter Region: [us-east-1]
+AWS Account: [239060090846] UserId: [AROATPKIXP7PMSK7BXDGK:Participant]
+Caller Identity ARN: [arn:aws:sts::239060090846:assumed-role/WAFRScanRole/Participant]
+
+Executing 38 checks, please wait...
+
+-> Scan completed! |▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉▉| 38/38 [100%] in 2.8s 
+```
+
+Once completed, you should see a summary of the scan, and a list of report filese generated:
+
+```shell
+Overview Results:
+╭──────────────────┬───────────────────╮
+│ 14.0% (7) Failed │ 86.0% (43) Passed │
+╰──────────────────┴───────────────────╯
+
+Account 239060090846 Scan Results (severity columns are for fails only):
+╭────────────┬───────────┬──────────┬────────────┬────────┬──────────┬───────╮
+│ Provider   │ Service   │ Status   │   Critical │   High │   Medium │   Low │
+├────────────┼───────────┼──────────┼────────────┼────────┼──────────┼───────┤
+│ aws        │ lambda    │ FAIL (2) │          1 │      0 │        0 │     1 │
+├────────────┼───────────┼──────────┼────────────┼────────┼──────────┼───────┤
+│ aws        │ ec2       │ FAIL (5) │          1 │      0 │        4 │     0 │
+╰────────────┴───────────┴──────────┴────────────┴────────┴──────────┴───────╯
+* You only see here those services that contains resources.
+
+Detailed results are in:
+ - HTML: /home/ec2-user/environment/output/prowler-output-239060090846-20230619130629.html
+ - JSON-OCSF: /home/ec2-user/environment/output/prowler-output-239060090846-20230619130629.ocsf.json
+ - CSV: /home/ec2-user/environment/output/prowler-output-239060090846-20230619130629.csv
+ - JSON: /home/ec2-user/environment/output/prowler-output-239060090846-20230619130629.json
+
+Detailed results of AWS_WELL_ARCHITECTED_FRAMEWORK_SECURITY_PILLAR_AWS are in:
+ - CSV: /home/ec2-user/environment/output/prowler-output-239060090846-20230619130629_aws_well_architected_framework_security_pillar_aws.csv
+ ```
+
+#### 2.4.Prowler reports
+
+This will generate detailed reports in the 'output' directory in the current CLI directory. By default, it will deliver HTML, JSON and CSV file formats.
+
+Here is an example of what the HTML report will look like: [Prowler Report](./prowler-output-report.html)
+
+You can copy the report the report S3 bucket to visualize it in the web via the CloudFront distribution
+
+```bash
+clear ; \
+echo "Setup variables to be used in the aws cli command" ; \
+bucket_name=$(\
+  aws cloudformation describe-stacks \
+  --stack-name wafr-scan-resources \
+  --query 'Stacks[0].Outputs[?OutputKey==`WAFRDataBucket`].OutputValue' \
+  --output text) ; \
+echo "bucket_name (S3 Report bucket) = ${bucket_name}" ; \
+wa_workload_id=$( aws wellarchitected list-workloads \
+  --query 'WorkloadSummaries[?WorkloadName==`wafr-workload`].WorkloadId' \
+  --output text) ; \
+echo "wa_workload_id = ${wa_workload_id}" ; \
+echo "Copy all the report files to the S3 reports bucket..." ; \
+for x in $(ls ./output -1) ; do \
+  aws s3 cp ./output/${x} s3://${bucket_name}/${wa_workload_id}/prowler/${x}; \
+done
+```

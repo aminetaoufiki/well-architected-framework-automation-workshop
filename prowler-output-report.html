@@ -1,0 +1,1742 @@
+
+        <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Required meta tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+        .read-more {
+            color: #00f;
+        }
+
+        .bg-success-custom {
+            background-color: #98dea7 !important;
+        }
+
+        .bg-danger {
+            background-color: #f28484 !important;
+        }
+    </style>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <!-- https://datatables.net/download/index with jQuery, DataTables, Buttons, SearchPanes, and Select //-->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/v/dt/jqc-1.12.4/dt-1.10.25/b-1.7.1/sp-1.4.0/sl-1.3.3/datatables.min.css" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <style>
+        .show-read-more .more-text {
+            display: none;
+        }
+
+        .dataTable {
+            font-size: 14px;
+        }
+
+        .container-fluid {
+            font-size: 14px;
+        }
+
+        .float-left {
+            float: left !important;
+            max-width: 100%;
+        }
+    </style>
+    <title>Prowler - The Handy Cloud Security Tool</title>
+    </head>
+    <body>
+    <div class="container-fluid">
+        <div class="row mt-3">
+        <div class="col-md-4">
+            <a href=https://github.com/prowler-cloud/prowler/><img class="float-left card-img-left mt-4 mr-4 ml-4"
+                        src=https://user-images.githubusercontent.com/3985464/113734260-7ba06900-96fb-11eb-82bc-d4f68a1e2710.png
+                        alt="prowler-logo"></a>
+            <div class="card">
+            <div class="card-header">
+                Report Information
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                <div class="row">
+                    <div class="col-md-auto">
+                    <b>Version:</b> 3.6.1
+                    </div>
+                </div>
+                </li>
+                <li class="list-group-item">
+                <b>Parameters used:</b> aws -f us-east-1 --compliance aws_well_architected_framework_security_pillar_aws -e macie_is_enabled iam_role_cross_service_confused_deputy_prevention iam_root_mfa_enabled iam_root_hardware_mfa_enabled --resource-tags WAFR-Workload=wafr-workload
+                </li>
+                <li class="list-group-item">
+                <b>Date:</b> 2023-06-19T13:06:29.094521
+                </li>
+            </ul>
+            </div>
+        </div> 
+            <div class="col-md-2">
+                <div class="card">
+                    <div class="card-header">
+                        AWS Assessment Summary
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <b>AWS Account:</b> 239060090846
+                        </li>
+                        <li class="list-group-item">
+                            <b>AWS-CLI Profile:</b> ENV
+                        </li>
+                        <li class="list-group-item">
+                            <b>Audited Regions:</b> us-east-1
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    AWS Credentials
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <b>User Id:</b> AROATPKIXP7PMSK7BXDGK:Participant
+                        </li>
+                        <li class="list-group-item">
+                            <b>Caller Identity ARN:</b> arn:aws:sts::239060090846:assumed-role/WAFRScanRole/Participant
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="col-md-2">
+            <div class="card">
+                <div class="card-header">
+                    Assessment Overview
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <b>Total Findings:</b> 50
+                    </li>
+                    <li class="list-group-item">
+                        <b>Passed:</b> 43
+                    </li>
+                    <li class="list-group-item">
+                        <b>Failed:</b> 7
+                    </li>
+                    <li class="list-group-item">
+                        <b>Total Resources:</b> 4
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </div>
+        </div>
+        <div class="row-mt-3">
+        <div class="col-md-12">
+            <table class="table compact stripe row-border ordering" id="findingsTable" data-order='[[ 5, "asc" ]]' data-page-length='100'>
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Status</th>
+                    <th scope="col">Severity</th>
+                    <th scope="col">Service Name</th>
+                    <th scope="col">Region</th>
+                    <th style="width:20%" scope="col">Check ID</th>
+                    <th style="width:20%" scope="col">Check Title</th>
+                    <th scope="col">Resource ID</th>
+                    <th scope="col">Resource Tags</th>
+                    <th scope="col">Status Extended</th>
+                    <th scope="col">Risk</th>
+                    <th scope="col">Recomendation</th>
+                    <th scope="col">Compliance</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr class="table-danger">
+                    <td>FAIL</td>
+                    <td>low</td>
+                    <td>lambda</td>
+                    <td>us-east-1</td>
+                    <td>awslambda<wbr>_function<wbr>_invoke<wbr>_api<wbr>_operations<wbr>_cloudtrail<wbr>_logging<wbr>_enabled</td>
+                    <td>Check if Lambda functions invoke API operations are being recorded by CloudTrail.</td>
+                    <td>workload-lambda</td>
+                    <td>
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:logical-id=LambdaFunction
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>Lambda function workload-lambda is not recorded by CloudTrail</td>
+                    <td><p class="show-read-more">If logs are not enabled; monitoring of service use and threat analysis is not possible.</p></td>
+                    <td><p class="show-read-more">Make sure you are logging information about Lambda operations. Create a lifecycle and use cases for each trail.</p> <a class="read-more" href="https://docs.aws.amazon.com/lambda/latest/dg/logging-using-cloudtrail.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC04-BP01
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>critical</td>
+                    <td>lambda</td>
+                    <td>us-east-1</td>
+                    <td>awslambda<wbr>_function<wbr>_no<wbr>_secrets<wbr>_in<wbr>_code</td>
+                    <td>Find secrets in Lambda functions code.</td>
+                    <td>workload-lambda</td>
+                    <td>
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:logical-id=LambdaFunction
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>No secrets found in Lambda function workload-lambda code</td>
+                    <td><p class="show-read-more">The use of a hard-coded password increases the possibility of password guessing.  If hard-coded passwords are used; it is possible that malicious users gain access through the account in question.</p></td>
+                    <td><p class="show-read-more">Use Secrets Manager to securely provide database credentials to Lambda functions and secure the databases as well as use the credentials to connect and query them without hardcoding the secrets in code or passing them through environmental variables.</p> <a class="read-more" href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/lambda-functions.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC02-BP03
+</p></td>
+                </tr>
+                
+                <tr class="table-danger">
+                    <td>FAIL</td>
+                    <td>critical</td>
+                    <td>lambda</td>
+                    <td>us-east-1</td>
+                    <td>awslambda<wbr>_function<wbr>_no<wbr>_secrets<wbr>_in<wbr>_variables</td>
+                    <td>Find secrets in Lambda functions variables.</td>
+                    <td>workload-lambda</td>
+                    <td>
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:logical-id=LambdaFunction
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>Potential secret found in Lambda function workload-lambda variables -&gt; Secret Keyword in variable Password</td>
+                    <td><p class="show-read-more">The use of a hard-coded password increases the possibility of password guessing. If hard-coded passwords are used; it is possible that malicious users gain access through the account in question.</p></td>
+                    <td><p class="show-read-more">Use Secrets Manager to securely provide database credentials to Lambda functions and secure the databases as well as use the credentials to connect and query them without hardcoding the secrets in code or passing them through environmental variables.</p> <a class="read-more" href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/lambda-functions.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC02-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>critical</td>
+                    <td>lambda</td>
+                    <td>us-east-1</td>
+                    <td>awslambda<wbr>_function<wbr>_not<wbr>_publicly<wbr>_accessible</td>
+                    <td>Check if Lambda functions have resource-based policy set as Public.</td>
+                    <td>workload-lambda</td>
+                    <td>
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:logical-id=LambdaFunction
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>Lambda function workload-lambda has a policy resource-based policy not public</td>
+                    <td><p class="show-read-more">Publicly accessible services could expose sensitive data to bad actors.</p></td>
+                    <td><p class="show-read-more">Grant usage permission on a per-resource basis and applying least privilege principle.</p> <a class="read-more" href="https://docs.aws.amazon.com/lambda/latest/dg/access-control-resource-based.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC03-BP07, SEC03-BP08, SEC05-BP01, SEC06-BP02
+
+&#x2022;NIST-800-53-Revision-4: ac_4, sc_7_3, sc_7
+
+&#x2022;HIPAA: 164_308_a_1_ii_b, 164_308_a_3_i, 164_312_a_1, 164_312_e_1
+
+&#x2022;RBI-Cyber-Security-Framework: annex_i_1_3
+
+&#x2022;GxP-21-CFR-Part-11: 11.10-d, 11.10-g
+
+&#x2022;NIST-800-171-Revision-2: 3_1_1, 3_1_2, 3_1_3, 3_1_14, 3_13_1, 3_13_2, 3_13_5
+
+&#x2022;NIST-CSF-1.1: ac_3, ac_5, pt_4
+
+&#x2022;PCI-3.2.1: lambda
+
+&#x2022;FedRAMP-Low-Revision-4: ac-3, ac-17, cm-2, sc-7
+
+&#x2022;ENS-RD2022: op.acc.4.aws.iam.1
+
+&#x2022;NIST-800-53-Revision-5: ac_2_6, ac_3, ac_3_7, ac_4_21, ac_6, ac_17_b, ac_17_1, ac_17_4_a, ac_17_9, ac_17_10, mp_2, sc_7_2, sc_7_3, sc_7_9_a, sc_7_11, sc_7_12, sc_7_16, sc_7_20, sc_7_21, sc_7_24_b, sc_7_a, sc_7_b, sc_7_c, sc_25
+
+&#x2022;FFIEC: d3-pc-im-b-1
+
+&#x2022;CISA: your-systems-3, your-data-2
+
+&#x2022;FedRamp-Moderate-Revision-4: ac-3, ac-4, ac-6, ac-17-1, cm-2, sc-7-3, sc-7
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>medium</td>
+                    <td>lambda</td>
+                    <td>us-east-1</td>
+                    <td>awslambda<wbr>_function<wbr>_using<wbr>_supported<wbr>_runtimes</td>
+                    <td>Find obsolete Lambda runtimes.</td>
+                    <td>workload-lambda</td>
+                    <td>
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:logical-id=LambdaFunction
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>Lambda function workload-lambda is using python3.9 which is supported</td>
+                    <td><p class="show-read-more">If you have functions running on a runtime that will be deprecated in the next 60 days; Lambda notifies you by email that you should prepare by migrating your function to a supported runtime. In some cases; such as security issues that require a backwards-incompatible update; or software that does not support a long-term support (LTS) schedule; advance notice might not be possible. After a runtime is deprecated; Lambda might retire it completely at any time by disabling invocation. Deprecated runtimes are not eligible for security updates or technical support.</p></td>
+                    <td><p class="show-read-more">Test new runtimes as they are made available. Implement them in production as soon as possible.</p> <a class="read-more" href="https://docs.aws.amazon.com/lambda/latest/dg/runtime-support-policy.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Foundational-Security-Best-Practices: lambda
+</p></td>
+                </tr>
+                
+                <tr class="table-danger">
+                    <td>FAIL</td>
+                    <td>medium</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_instance<wbr>_imdsv2<wbr>_enabled</td>
+                    <td>Check if EC2 Instance Metadata Service Version 2 (IMDSv2) is Enabled and Required.</td>
+                    <td>i-0033f4a1b198ec6ff</td>
+                    <td>
+&#x2022;Name=workload-webserver
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:logical-id=EC2Instance
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>EC2 Instance i-0033f4a1b198ec6ff has IMDSv2 disabled or not required.</td>
+                    <td><p class="show-read-more">Using IMDSv2 will protect from misconfiguration and SSRF vulnerabilities. IMDSv1 will not.</p></td>
+                    <td><p class="show-read-more">If you dont need IMDS you can turn it off. Using aws-cli you can force the instance to use only IMDSv2.</p> <a class="read-more" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html#configuring-instance-metadata-options"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC03-BP01, SEC06-BP01
+
+&#x2022;NIST-800-53-Revision-4: ac_6, ca_7, si_4_2, si_4
+
+&#x2022;GxP-21-CFR-Part-11: 11.10-d, 11.10-g
+
+&#x2022;NIST-800-171-Revision-2: 3_12_4
+
+&#x2022;AWS-Foundational-Security-Best-Practices: ec2
+
+&#x2022;NIST-CSF-1.1: cm_2, cm_5, cp_4, cp_5, ra_5, sc_4
+
+&#x2022;FedRAMP-Low-Revision-4: ac-3, ca-7
+
+&#x2022;SOC2: cc_7_2
+
+&#x2022;NIST-800-53-Revision-5: ac_2_6, ac_3, ac_3_3, ac_3_3_a, ac_3_3_b_1, ac_3_3_b_2, ac_3_3_b_3, ac_3_3_b_4, ac_3_3_b_5, ac_3_3_c, ac_3_4, ac_3_4_a, ac_3_4_b, ac_3_4_c, ac_3_4_d, ac_3_4_e, ac_3_7, ac_3_8, ac_3_12_a, ac_3_13, ac_3_15_a, ac_3_15_b, ac_4_28, ac_6, ac_24, cm_5_1_a, mp_2, sc_23_3
+
+&#x2022;FedRamp-Moderate-Revision-4: ac-3, ac-6, ca-7-a-b, si-4-2, si-4-4, si-4-5, si-4-a-b-c
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>medium</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_instance<wbr>_internet<wbr>_facing<wbr>_with<wbr>_instance<wbr>_profile</td>
+                    <td>Check for internet facing EC2 instances with Instance Profiles attached.</td>
+                    <td>i-0033f4a1b198ec6ff</td>
+                    <td>
+&#x2022;Name=workload-webserver
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:logical-id=EC2Instance
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>EC2 Instance i-0033f4a1b198ec6ff is not internet facing with an instance profile.</td>
+                    <td><p class="show-read-more">Exposing an EC2 directly to internet increases the attack surface and therefore the risk of compromise.</p></td>
+                    <td><p class="show-read-more">Use an ALB and apply WAF ACL.</p> <a class="read-more" href="https://aws.amazon.com/blogs/aws/aws-web-application-firewall-waf-for-application-load-balancers/"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC06-BP01
+
+&#x2022;ENS-RD2022: mp.com.4.aws.vpc.2
+</p></td>
+                </tr>
+                
+                <tr class="table-danger">
+                    <td>FAIL</td>
+                    <td>medium</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_instance<wbr>_managed<wbr>_by<wbr>_ssm</td>
+                    <td>Check if EC2 instances are managed by Systems Manager.</td>
+                    <td>i-0033f4a1b198ec6ff</td>
+                    <td>
+&#x2022;Name=workload-webserver
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:logical-id=EC2Instance
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>EC2 Instance i-0033f4a1b198ec6ff is not managed by Systems Manager.</td>
+                    <td><p class="show-read-more">AWS Config provides AWS Managed Rules, which are predefined, customizable rules that AWS Config uses to evaluate whether your AWS resource configurations comply with common best practices.</p></td>
+                    <td><p class="show-read-more">Verify and apply Systems Manager Prerequisites.</p> <a class="read-more" href="https://docs.aws.amazon.com/systems-manager/latest/userguide/managed_instances.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC01-BP06, SEC06-BP04, SEC06-BP05
+
+&#x2022;NIST-800-53-Revision-4: cm_2, cm_7, cm_8_1, cm_8_3, sa_3, sa_10, si_2_2, si_7_1
+
+&#x2022;HIPAA: 164_308_a_5_ii_b
+
+&#x2022;RBI-Cyber-Security-Framework: annex_i_1_1
+
+&#x2022;GxP-21-CFR-Part-11: 11.10-a, 11.10-h
+
+&#x2022;NIST-800-171-Revision-2: 3_4_1, 3_4_2, 3_4_6, 3_4_9, 3_14_2
+
+&#x2022;AWS-Foundational-Security-Best-Practices: ssm
+
+&#x2022;NIST-CSF-1.1: am_1, am_2, ds_3, ds_7, ds_8, ip_1, ip_2, ip_12
+
+&#x2022;PCI-3.2.1: ssm
+
+&#x2022;FedRAMP-Low-Revision-4: cm-8, sa-3
+
+&#x2022;SOC2: cc_3_2, cc_7_1
+
+&#x2022;ENS-RD2022: op.acc.4.aws.iam.6, op.acc.4.aws.sys.1, op.exp.1.aws.sys.1, op.exp.4.aws.sys.2, op.exp.4.r2.aws.sys.1
+
+&#x2022;NIST-800-53-Revision-5: cm_2_a, cm_2_b, cm_2_b_1, cm_2_b_2, cm_2_b_3, cm_2_2, cm_3_3, cm_6, cm_8_1, cm_8_2, cm_8_3_a, cm_8_6, cm_8_a, cm_8_a_1, cm_8_a_2, cm_8_a_3, cm_8_a_4, cm_8_a_5, cm_8_b, si_3_c_2
+
+&#x2022;FFIEC: d1-g-it-b-1, d3-pc-im-b-5
+
+&#x2022;CISA: your-systems-1
+
+&#x2022;FedRamp-Moderate-Revision-4: cm-2, cm-7-a, cm-8-1, cm-8-3-a, sa-3-a, sa-10, si-2-2, si-7-1
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>medium</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_instance<wbr>_older<wbr>_than<wbr>_specific<wbr>_days</td>
+                    <td>Check EC2 Instances older than specific days.</td>
+                    <td>i-0033f4a1b198ec6ff</td>
+                    <td>
+&#x2022;Name=workload-webserver
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:logical-id=EC2Instance
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>EC2 Instance i-0033f4a1b198ec6ff is not older than 180 days (0 days).</td>
+                    <td><p class="show-read-more">Having old instances within your AWS account could increase the risk of having vulnerable software.</p></td>
+                    <td><p class="show-read-more">Check if software running in the instance is up to date and patched accordingly. Use AWS Systems Manager to patch instances and view patching compliance information.</p> <a class="read-more" href="https://docs.aws.amazon.com/systems-manager/latest/userguide/viewing-patch-compliance-results.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;NIST-800-53-Revision-4: cm_2
+
+&#x2022;HIPAA: 164_308_a_1_ii_b
+
+&#x2022;GxP-21-CFR-Part-11: 11.10-a
+
+&#x2022;NIST-800-171-Revision-2: 3_4_1, 3_4_2
+
+&#x2022;AWS-Foundational-Security-Best-Practices: ec2
+
+&#x2022;NIST-CSF-1.1: ds_7, ip_1
+
+&#x2022;FedRAMP-Low-Revision-4: cm-2
+
+&#x2022;NIST-800-53-Revision-5: cm_2_a, cm_2_b, cm_2_b_1, cm_2_b_2, cm_2_b_3, cm_2_2, cm_3_3, cm_8_6
+
+&#x2022;FFIEC: d1-g-it-b-1
+
+&#x2022;CISA: your-systems-1
+
+&#x2022;FedRamp-Moderate-Revision-4: cm-2
+</p></td>
+                </tr>
+                
+                <tr class="table-danger">
+                    <td>FAIL</td>
+                    <td>medium</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_instance<wbr>_profile<wbr>_attached</td>
+                    <td>Ensure IAM instance roles are used for AWS resource access from instances</td>
+                    <td>i-0033f4a1b198ec6ff</td>
+                    <td>
+&#x2022;Name=workload-webserver
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:logical-id=EC2Instance
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>EC2 Instance i-0033f4a1b198ec6ff not associated with an Instance Profile Role.</td>
+                    <td><p class="show-read-more">AWS access from within AWS instances can be done by either encoding AWS keys into AWS API calls or by assigning the instance to a role which has an appropriate permissions policy for the required access. AWS IAM roles reduce the risks associated with sharing and rotating credentials that can be used outside of AWS itself. If credentials are compromised, they can be used from outside of the AWS account.</p></td>
+                    <td><p class="show-read-more">Create an IAM instance role if necessary and attach it to the corresponding EC2 instance..</p> <a class="read-more" href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC03-BP01, SEC03-BP02, SEC06-BP04, SEC06-BP05
+
+&#x2022;CIS-1.4: 1.18
+
+&#x2022;GxP-21-CFR-Part-11: 11.10-d, 11.10-g
+
+&#x2022;NIST-800-171-Revision-2: 3_1_1, 3_1_2
+
+&#x2022;NIST-800-53-Revision-5: ac_3, cm_5_1_a, cm_6_a
+
+&#x2022;FFIEC: d3-pc-am-b-1
+
+&#x2022;CIS-1.5: 1.18
+</p></td>
+                </tr>
+                
+                <tr class="table-danger">
+                    <td>FAIL</td>
+                    <td>medium</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_instance<wbr>_public<wbr>_ip</td>
+                    <td>Check for EC2 Instances with Public IP.</td>
+                    <td>i-0033f4a1b198ec6ff</td>
+                    <td>
+&#x2022;Name=workload-webserver
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:logical-id=EC2Instance
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>EC2 Instance i-0033f4a1b198ec6ff has a Public IP: 44.202.226.57 (ec2-44-202-226-57.compute-1.amazonaws.com).</td>
+                    <td><p class="show-read-more">Exposing an EC2 directly to internet increases the attack surface and therefore the risk of compromise.</p></td>
+                    <td><p class="show-read-more">Use an ALB and apply WAF ACL.</p> <a class="read-more" href="https://aws.amazon.com/blogs/aws/aws-web-application-firewall-waf-for-application-load-balancers/"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC03-BP07
+
+&#x2022;NIST-800-53-Revision-4: ac_4, ac_6, ac_21, sc_7_3, sc_7
+
+&#x2022;HIPAA: 164_308_a_1_ii_b, 164_308_a_3_i, 164_312_a_1
+
+&#x2022;RBI-Cyber-Security-Framework: annex_i_1_3
+
+&#x2022;GxP-21-CFR-Part-11: 11.10-d, 11.10-g
+
+&#x2022;NIST-800-171-Revision-2: 3_1_1, 3_1_2, 3_1_3, 3_1_14, 3_13_2, 3_13_5
+
+&#x2022;AWS-Foundational-Security-Best-Practices: ec2
+
+&#x2022;NIST-CSF-1.1: ac_3, ac_5, ip_8
+
+&#x2022;FedRAMP-Low-Revision-4: ac-3, ac-17, cm-2, sc-7
+
+&#x2022;SOC2: cc_6_6
+
+&#x2022;NIST-800-53-Revision-5: ac_2_6, ac_3, ac_3_7, ac_4_21, ac_6, ac_17_b, ac_17_1, ac_17_4_a, ac_17_9, ac_17_10, mp_2, sc_7_2, sc_7_3, sc_7_7, sc_7_9_a, sc_7_11, sc_7_12, sc_7_16, sc_7_20, sc_7_21, sc_7_24_b, sc_7_25, sc_7_26, sc_7_27, sc_7_28, sc_7_a, sc_7_b, sc_7_c, sc_25
+
+&#x2022;FFIEC: d3-pc-im-b-1
+
+&#x2022;CISA: your-systems-3, your-data-2
+
+&#x2022;FedRamp-Moderate-Revision-4: ac-3, ac-4, ac-6, ac-17-1, ac-21-b, cm-2, sc-7-3, sc-7
+</p></td>
+                </tr>
+                
+                <tr class="table-danger">
+                    <td>FAIL</td>
+                    <td>critical</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_instance<wbr>_secrets<wbr>_user<wbr>_data</td>
+                    <td>Find secrets in EC2 User Data.</td>
+                    <td>i-0033f4a1b198ec6ff</td>
+                    <td>
+&#x2022;Name=workload-webserver
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:logical-id=EC2Instance
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>Potential secret found in EC2 instance i-0033f4a1b198ec6ff User Data.</td>
+                    <td><p class="show-read-more">Secrets hardcoded into instance user data can be used by malware and bad actors to gain lateral access to other services.</p></td>
+                    <td><p class="show-read-more">Implement automated detective control (e.g. using tools like Prowler) to scan accounts for passwords and secrets. Use secrets manager service to store and retrieve passwords and secrets.</p> <a class="read-more" href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/tutorials_basic.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC02-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_any<wbr>_port</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to any port.</td>
+                    <td>sg-046848270b9f7365e</td>
+                    <td>
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+
+&#x2022;aws:cloudformation:logical-id=EC2SecurityGroup
+</td>
+                    <td>Security group workload-autoscaling-sg (sg-046848270b9f7365e) has not all ports open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+
+&#x2022;CIS-1.4: 5.2
+
+&#x2022;ENS-RD2022: mp.com.1.aws.sg.2
+
+&#x2022;CISA: your-systems-3, your-data-2
+
+&#x2022;CIS-1.5: 5.2, 5.3
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_any<wbr>_port</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to any port.</td>
+                    <td>sg-0bfed04d2e86d49ad</td>
+                    <td>
+&#x2022;aws:cloudformation:logical-id=WebEC2SecurityGroup
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>Security group web-sg (sg-0bfed04d2e86d49ad) has not all ports open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+
+&#x2022;CIS-1.4: 5.2
+
+&#x2022;ENS-RD2022: mp.com.1.aws.sg.2
+
+&#x2022;CISA: your-systems-3, your-data-2
+
+&#x2022;CIS-1.5: 5.2, 5.3
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_port<wbr>_mongodb<wbr>_27017<wbr>_27018</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to MongoDB ports 27017 and 27018.</td>
+                    <td>sg-046848270b9f7365e</td>
+                    <td>
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+
+&#x2022;aws:cloudformation:logical-id=EC2SecurityGroup
+</td>
+                    <td>Security group workload-autoscaling-sg (sg-046848270b9f7365e) has not MongoDB ports 27017 and 27018 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_port<wbr>_mongodb<wbr>_27017<wbr>_27018</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to MongoDB ports 27017 and 27018.</td>
+                    <td>sg-0bfed04d2e86d49ad</td>
+                    <td>
+&#x2022;aws:cloudformation:logical-id=WebEC2SecurityGroup
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>Security group web-sg (sg-0bfed04d2e86d49ad) has not MongoDB ports 27017 and 27018 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_ftp<wbr>_port<wbr>_20<wbr>_21</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to FTP ports 20 or 21.</td>
+                    <td>sg-046848270b9f7365e</td>
+                    <td>
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+
+&#x2022;aws:cloudformation:logical-id=EC2SecurityGroup
+</td>
+                    <td>Security group workload-autoscaling-sg (sg-046848270b9f7365e) has not FTP ports 20 and 21 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_ftp<wbr>_port<wbr>_20<wbr>_21</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to FTP ports 20 or 21.</td>
+                    <td>sg-0bfed04d2e86d49ad</td>
+                    <td>
+&#x2022;aws:cloudformation:logical-id=WebEC2SecurityGroup
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>Security group web-sg (sg-0bfed04d2e86d49ad) has not FTP ports 20 and 21 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_port<wbr>_22</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to SSH port 22.</td>
+                    <td>sg-046848270b9f7365e</td>
+                    <td>
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+
+&#x2022;aws:cloudformation:logical-id=EC2SecurityGroup
+</td>
+                    <td>Security group workload-autoscaling-sg (sg-046848270b9f7365e) has not SSH port 22 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+
+&#x2022;NIST-800-53-Revision-4: ac_4, sc_7_3, sc_7
+
+&#x2022;CIS-1.4: 5.2
+
+&#x2022;HIPAA: 164_308_a_1_ii_b, 164_312_e_1
+
+&#x2022;RBI-Cyber-Security-Framework: annex_i_5_1, annex_i_7_3
+
+&#x2022;GxP-21-CFR-Part-11: 11.10-d, 11.10-g
+
+&#x2022;NIST-800-171-Revision-2: 3_1_1, 3_1_2, 3_1_3, 3_1_14, 3_1_20, 3_4_7, 3_13_1, 3_13_2, 3_13_5, 3_13_6
+
+&#x2022;NIST-CSF-1.1: ae_1, ac_3, ac_5, ds_7, pt_4
+
+&#x2022;PCI-3.2.1: ec2
+
+&#x2022;AWS-Audit-Manager-Control-Tower-Guardrails: 2.0.2
+
+&#x2022;FedRAMP-Low-Revision-4: ac-17, cm-2, sc-7
+
+&#x2022;SOC2: cc_7_2
+
+&#x2022;NIST-800-53-Revision-5: ac_17_b, ac_17_1, ac_17_9, ac_17_10, cm_9_b, sc_7_7, sc_7_11, sc_7_12, sc_7_16, sc_7_21, sc_7_24_b, sc_7_25, sc_7_26, sc_7_27, sc_7_28, sc_7_a, sc_7_c
+
+&#x2022;FFIEC: d3-pc-am-b-10, d3-pc-im-b-1, d3-pc-im-b-2, d3-pc-im-b-6, d4-c-co-b-2
+
+&#x2022;CISA: your-systems-3, your-data-2
+
+&#x2022;CIS-1.5: 5.2, 5.3
+
+&#x2022;FedRamp-Moderate-Revision-4: ac-4, ac-17-1, cm-2, sc-4, sc-7-3, sc-7
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_port<wbr>_22</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to SSH port 22.</td>
+                    <td>sg-0bfed04d2e86d49ad</td>
+                    <td>
+&#x2022;aws:cloudformation:logical-id=WebEC2SecurityGroup
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>Security group web-sg (sg-0bfed04d2e86d49ad) has not SSH port 22 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+
+&#x2022;NIST-800-53-Revision-4: ac_4, sc_7_3, sc_7
+
+&#x2022;CIS-1.4: 5.2
+
+&#x2022;HIPAA: 164_308_a_1_ii_b, 164_312_e_1
+
+&#x2022;RBI-Cyber-Security-Framework: annex_i_5_1, annex_i_7_3
+
+&#x2022;GxP-21-CFR-Part-11: 11.10-d, 11.10-g
+
+&#x2022;NIST-800-171-Revision-2: 3_1_1, 3_1_2, 3_1_3, 3_1_14, 3_1_20, 3_4_7, 3_13_1, 3_13_2, 3_13_5, 3_13_6
+
+&#x2022;NIST-CSF-1.1: ae_1, ac_3, ac_5, ds_7, pt_4
+
+&#x2022;PCI-3.2.1: ec2
+
+&#x2022;AWS-Audit-Manager-Control-Tower-Guardrails: 2.0.2
+
+&#x2022;FedRAMP-Low-Revision-4: ac-17, cm-2, sc-7
+
+&#x2022;SOC2: cc_7_2
+
+&#x2022;NIST-800-53-Revision-5: ac_17_b, ac_17_1, ac_17_9, ac_17_10, cm_9_b, sc_7_7, sc_7_11, sc_7_12, sc_7_16, sc_7_21, sc_7_24_b, sc_7_25, sc_7_26, sc_7_27, sc_7_28, sc_7_a, sc_7_c
+
+&#x2022;FFIEC: d3-pc-am-b-10, d3-pc-im-b-1, d3-pc-im-b-2, d3-pc-im-b-6, d4-c-co-b-2
+
+&#x2022;CISA: your-systems-3, your-data-2
+
+&#x2022;CIS-1.5: 5.2, 5.3
+
+&#x2022;FedRamp-Moderate-Revision-4: ac-4, ac-17-1, cm-2, sc-4, sc-7-3, sc-7
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_port<wbr>_3389</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to port 3389.</td>
+                    <td>sg-046848270b9f7365e</td>
+                    <td>
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+
+&#x2022;aws:cloudformation:logical-id=EC2SecurityGroup
+</td>
+                    <td>Security group workload-autoscaling-sg (sg-046848270b9f7365e) has not Microsoft RDP port 3389 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+
+&#x2022;CIS-1.4: 5.2
+
+&#x2022;PCI-3.2.1: ec2
+
+&#x2022;AWS-Audit-Manager-Control-Tower-Guardrails: 2.0.1
+
+&#x2022;CIS-1.5: 5.2, 5.3
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_port<wbr>_3389</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to port 3389.</td>
+                    <td>sg-0bfed04d2e86d49ad</td>
+                    <td>
+&#x2022;aws:cloudformation:logical-id=WebEC2SecurityGroup
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>Security group web-sg (sg-0bfed04d2e86d49ad) has not Microsoft RDP port 3389 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+
+&#x2022;CIS-1.4: 5.2
+
+&#x2022;PCI-3.2.1: ec2
+
+&#x2022;AWS-Audit-Manager-Control-Tower-Guardrails: 2.0.1
+
+&#x2022;CIS-1.5: 5.2, 5.3
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_port<wbr>_cassandra<wbr>_7199<wbr>_9160<wbr>_8888</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to Cassandra ports 7199 or 9160 or 8888.</td>
+                    <td>sg-046848270b9f7365e</td>
+                    <td>
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+
+&#x2022;aws:cloudformation:logical-id=EC2SecurityGroup
+</td>
+                    <td>Security group workload-autoscaling-sg (sg-046848270b9f7365e) has not Casandra ports 7199, 8888 and 9160 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_port<wbr>_cassandra<wbr>_7199<wbr>_9160<wbr>_8888</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to Cassandra ports 7199 or 9160 or 8888.</td>
+                    <td>sg-0bfed04d2e86d49ad</td>
+                    <td>
+&#x2022;aws:cloudformation:logical-id=WebEC2SecurityGroup
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>Security group web-sg (sg-0bfed04d2e86d49ad) has not Casandra ports 7199, 8888 and 9160 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_port<wbr>_elasticsearch<wbr>_kibana<wbr>_9200<wbr>_9300<wbr>_5601</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to Elasticsearch/Kibana ports.</td>
+                    <td>sg-046848270b9f7365e</td>
+                    <td>
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+
+&#x2022;aws:cloudformation:logical-id=EC2SecurityGroup
+</td>
+                    <td>Security group workload-autoscaling-sg (sg-046848270b9f7365e) has not Elasticsearch/Kibana ports 9200, 9300 and 5601 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_port<wbr>_elasticsearch<wbr>_kibana<wbr>_9200<wbr>_9300<wbr>_5601</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to Elasticsearch/Kibana ports.</td>
+                    <td>sg-0bfed04d2e86d49ad</td>
+                    <td>
+&#x2022;aws:cloudformation:logical-id=WebEC2SecurityGroup
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>Security group web-sg (sg-0bfed04d2e86d49ad) has not Elasticsearch/Kibana ports 9200, 9300 and 5601 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_port<wbr>_kafka<wbr>_9092</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to Kafka port 9092.</td>
+                    <td>sg-046848270b9f7365e</td>
+                    <td>
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+
+&#x2022;aws:cloudformation:logical-id=EC2SecurityGroup
+</td>
+                    <td>Security group workload-autoscaling-sg (sg-046848270b9f7365e) has not Kafka port 9092 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_port<wbr>_kafka<wbr>_9092</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to Kafka port 9092.</td>
+                    <td>sg-0bfed04d2e86d49ad</td>
+                    <td>
+&#x2022;aws:cloudformation:logical-id=WebEC2SecurityGroup
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>Security group web-sg (sg-0bfed04d2e86d49ad) has not Kafka port 9092 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_port<wbr>_memcached<wbr>_11211</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to Memcached port 11211.</td>
+                    <td>sg-046848270b9f7365e</td>
+                    <td>
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+
+&#x2022;aws:cloudformation:logical-id=EC2SecurityGroup
+</td>
+                    <td>Security group workload-autoscaling-sg (sg-046848270b9f7365e) has not Memcached port 11211 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_port<wbr>_memcached<wbr>_11211</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to Memcached port 11211.</td>
+                    <td>sg-0bfed04d2e86d49ad</td>
+                    <td>
+&#x2022;aws:cloudformation:logical-id=WebEC2SecurityGroup
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>Security group web-sg (sg-0bfed04d2e86d49ad) has not Memcached port 11211 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_port<wbr>_mysql<wbr>_3306</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to MySQL port 3306.</td>
+                    <td>sg-046848270b9f7365e</td>
+                    <td>
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+
+&#x2022;aws:cloudformation:logical-id=EC2SecurityGroup
+</td>
+                    <td>Security group workload-autoscaling-sg (sg-046848270b9f7365e) has not MySQL port 3306 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_port<wbr>_mysql<wbr>_3306</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to MySQL port 3306.</td>
+                    <td>sg-0bfed04d2e86d49ad</td>
+                    <td>
+&#x2022;aws:cloudformation:logical-id=WebEC2SecurityGroup
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>Security group web-sg (sg-0bfed04d2e86d49ad) has not MySQL port 3306 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_port<wbr>_oracle<wbr>_1521<wbr>_2483</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to Oracle ports 1521 or 2483.</td>
+                    <td>sg-046848270b9f7365e</td>
+                    <td>
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+
+&#x2022;aws:cloudformation:logical-id=EC2SecurityGroup
+</td>
+                    <td>Security group workload-autoscaling-sg (sg-046848270b9f7365e) has not Oracle ports 1521 and 2483 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_port<wbr>_oracle<wbr>_1521<wbr>_2483</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to Oracle ports 1521 or 2483.</td>
+                    <td>sg-0bfed04d2e86d49ad</td>
+                    <td>
+&#x2022;aws:cloudformation:logical-id=WebEC2SecurityGroup
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>Security group web-sg (sg-0bfed04d2e86d49ad) has not Oracle ports 1521 and 2483 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_port<wbr>_postgres<wbr>_5432</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to Postgres port 5432.</td>
+                    <td>sg-046848270b9f7365e</td>
+                    <td>
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+
+&#x2022;aws:cloudformation:logical-id=EC2SecurityGroup
+</td>
+                    <td>Security group workload-autoscaling-sg (sg-046848270b9f7365e) has not Postgres port 5432 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_port<wbr>_postgres<wbr>_5432</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to Postgres port 5432.</td>
+                    <td>sg-0bfed04d2e86d49ad</td>
+                    <td>
+&#x2022;aws:cloudformation:logical-id=WebEC2SecurityGroup
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>Security group web-sg (sg-0bfed04d2e86d49ad) has not Postgres port 5432 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_port<wbr>_redis<wbr>_6379</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to Redis port 6379.</td>
+                    <td>sg-046848270b9f7365e</td>
+                    <td>
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+
+&#x2022;aws:cloudformation:logical-id=EC2SecurityGroup
+</td>
+                    <td>Security group workload-autoscaling-sg (sg-046848270b9f7365e) has not Redis port 6379 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_port<wbr>_redis<wbr>_6379</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to Redis port 6379.</td>
+                    <td>sg-0bfed04d2e86d49ad</td>
+                    <td>
+&#x2022;aws:cloudformation:logical-id=WebEC2SecurityGroup
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>Security group web-sg (sg-0bfed04d2e86d49ad) has not Redis port 6379 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_port<wbr>_sql<wbr>_server<wbr>_1433<wbr>_1434</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to Windows SQL Server ports 1433 or 1434.</td>
+                    <td>sg-046848270b9f7365e</td>
+                    <td>
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+
+&#x2022;aws:cloudformation:logical-id=EC2SecurityGroup
+</td>
+                    <td>Security group workload-autoscaling-sg (sg-046848270b9f7365e) has not Microsoft SQL Server ports 1433 and 1434 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_port<wbr>_sql<wbr>_server<wbr>_1433<wbr>_1434</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to Windows SQL Server ports 1433 or 1434.</td>
+                    <td>sg-0bfed04d2e86d49ad</td>
+                    <td>
+&#x2022;aws:cloudformation:logical-id=WebEC2SecurityGroup
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>Security group web-sg (sg-0bfed04d2e86d49ad) has not Microsoft SQL Server ports 1433 and 1434 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_port<wbr>_telnet<wbr>_23</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to Telnet port 23.</td>
+                    <td>sg-046848270b9f7365e</td>
+                    <td>
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+
+&#x2022;aws:cloudformation:logical-id=EC2SecurityGroup
+</td>
+                    <td>Security group workload-autoscaling-sg (sg-046848270b9f7365e) has not Telnet port 23 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_ingress<wbr>_from<wbr>_internet<wbr>_to<wbr>_tcp<wbr>_port<wbr>_telnet<wbr>_23</td>
+                    <td>Ensure no security groups allow ingress from 0.0.0.0/0 or ::/0 to Telnet port 23.</td>
+                    <td>sg-0bfed04d2e86d49ad</td>
+                    <td>
+&#x2022;aws:cloudformation:logical-id=WebEC2SecurityGroup
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>Security group web-sg (sg-0bfed04d2e86d49ad) has not Telnet port 23 open to the Internet.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_wide<wbr>_open<wbr>_public<wbr>_ipv4</td>
+                    <td>Ensure no security groups allow ingress from wide-open non-RFC1918 address.</td>
+                    <td>sg-046848270b9f7365e</td>
+                    <td>
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+
+&#x2022;aws:cloudformation:logical-id=EC2SecurityGroup
+</td>
+                    <td>Security group workload-autoscaling-sg (sg-046848270b9f7365e) has no potential wide-open non-RFC1918 address.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC03-BP07
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_allow<wbr>_wide<wbr>_open<wbr>_public<wbr>_ipv4</td>
+                    <td>Ensure no security groups allow ingress from wide-open non-RFC1918 address.</td>
+                    <td>sg-0bfed04d2e86d49ad</td>
+                    <td>
+&#x2022;aws:cloudformation:logical-id=WebEC2SecurityGroup
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>Security group web-sg (sg-0bfed04d2e86d49ad) has no potential wide-open non-RFC1918 address.</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC03-BP07
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>medium</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_from<wbr>_launch<wbr>_wizard</td>
+                    <td>Security Groups created by EC2 Launch Wizard.</td>
+                    <td>sg-046848270b9f7365e</td>
+                    <td>
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+
+&#x2022;aws:cloudformation:logical-id=EC2SecurityGroup
+</td>
+                    <td>Security group workload-autoscaling-sg (sg-046848270b9f7365e) was not created using the EC2 Launch Wizard.</td>
+                    <td><p class="show-read-more">Security Groups Created on the AWS Console using the EC2 wizard may allow port 22 from 0.0.0.0/0.</p></td>
+                    <td><p class="show-read-more">Apply Zero Trust approach. Implement a process to scan and remediate security groups created by the EC2 Wizard. Recommended best practices is to use an authorized security group.</p> <a class="read-more" href="https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+
+&#x2022;ENS-RD2022: mp.com.1.aws.sg.1
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>medium</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_from<wbr>_launch<wbr>_wizard</td>
+                    <td>Security Groups created by EC2 Launch Wizard.</td>
+                    <td>sg-0bfed04d2e86d49ad</td>
+                    <td>
+&#x2022;aws:cloudformation:logical-id=WebEC2SecurityGroup
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>Security group web-sg (sg-0bfed04d2e86d49ad) was not created using the EC2 Launch Wizard.</td>
+                    <td><p class="show-read-more">Security Groups Created on the AWS Console using the EC2 wizard may allow port 22 from 0.0.0.0/0.</p></td>
+                    <td><p class="show-read-more">Apply Zero Trust approach. Implement a process to scan and remediate security groups created by the EC2 Wizard. Recommended best practices is to use an authorized security group.</p> <a class="read-more" href="https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+
+&#x2022;ENS-RD2022: mp.com.1.aws.sg.1
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>low</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_not<wbr>_used</td>
+                    <td>Ensure there are no Security Groups not being used.</td>
+                    <td>sg-046848270b9f7365e</td>
+                    <td>
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+
+&#x2022;aws:cloudformation:logical-id=EC2SecurityGroup
+</td>
+                    <td>Security group workload-autoscaling-sg (sg-046848270b9f7365e) it is being used.</td>
+                    <td><p class="show-read-more">Having clear definition and scope for Security Groups creates a better administration environment.</p></td>
+                    <td><p class="show-read-more">List all the security groups and then use the cli to check if they are attached to an instance.</p> <a class="read-more" href="https://aws.amazon.com/premiumsupport/knowledge-center/ec2-find-security-group-resources/"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+
+&#x2022;AWS-Foundational-Security-Best-Practices: ec2
+
+&#x2022;ENS-RD2022: mp.com.1.aws.sg.3
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>low</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_not<wbr>_used</td>
+                    <td>Ensure there are no Security Groups not being used.</td>
+                    <td>sg-0bfed04d2e86d49ad</td>
+                    <td>
+&#x2022;aws:cloudformation:logical-id=WebEC2SecurityGroup
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>Security group web-sg (sg-0bfed04d2e86d49ad) it is being used.</td>
+                    <td><p class="show-read-more">Having clear definition and scope for Security Groups creates a better administration environment.</p></td>
+                    <td><p class="show-read-more">List all the security groups and then use the cli to check if they are attached to an instance.</p> <a class="read-more" href="https://aws.amazon.com/premiumsupport/knowledge-center/ec2-find-security-group-resources/"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+
+&#x2022;AWS-Foundational-Security-Best-Practices: ec2
+
+&#x2022;ENS-RD2022: mp.com.1.aws.sg.3
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_with<wbr>_many<wbr>_ingress<wbr>_egress<wbr>_rules</td>
+                    <td>Find security groups with more than 50 ingress or egress rules.</td>
+                    <td>sg-046848270b9f7365e</td>
+                    <td>
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+
+&#x2022;aws:cloudformation:logical-id=EC2SecurityGroup
+</td>
+                    <td>Security group workload-autoscaling-sg (sg-046848270b9f7365e) has 1 inbound rules and 1 outbound rules</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+                <tr class="p-3 mb-2 bg-success-custom">
+                    <td>PASS</td>
+                    <td>high</td>
+                    <td>ec2</td>
+                    <td>us-east-1</td>
+                    <td>ec2<wbr>_securitygroup<wbr>_with<wbr>_many<wbr>_ingress<wbr>_egress<wbr>_rules</td>
+                    <td>Find security groups with more than 50 ingress or egress rules.</td>
+                    <td>sg-0bfed04d2e86d49ad</td>
+                    <td>
+&#x2022;aws:cloudformation:logical-id=WebEC2SecurityGroup
+
+&#x2022;aws:cloudformation:stack-id=arn:aws:cloudformation:us-east-1:239060090846:stack/wafr-workload/ac56ad40-0e9d-11ee-82f6-12f506657395
+
+&#x2022;WAFR-Workload=wafr-workload
+
+&#x2022;aws:cloudformation:stack-name=wafr-workload
+</td>
+                    <td>Security group web-sg (sg-0bfed04d2e86d49ad) has 1 inbound rules and 1 outbound rules</td>
+                    <td><p class="show-read-more">If Security groups are not properly configured the attack surface is increased.</p></td>
+                    <td><p class="show-read-more">Use a Zero Trust approach. Narrow ingress traffic as much as possible. Consider north-south as well as east-west traffic.</p> <a class="read-more" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html"><i class="fas fa-external-link-alt"></i></a></td>
+                    <td><p class="show-read-more">
+&#x2022;AWS-Well-Architected-Framework-Security-Pillar: SEC05-BP03
+</p></td>
+                </tr>
+                
+               </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+    </div>
+    <!-- Table search and paginator -->
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
+        integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd"
+        crossorigin="anonymous"></script>
+    <!-- https://datatables.net/download/index with jQuery, DataTables, Buttons, SearchPanes, and Select //-->
+    <script type="text/javascript"
+        src="https://cdn.datatables.net/v/dt/jqc-1.12.4/dt-1.10.25/b-1.7.1/sp-1.4.0/sl-1.3.3/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Initialise the table with 50 rows, and some search/filtering panes
+            $('#findingsTable').DataTable({
+                responsive: true,
+                // Show 25, 50, 100 and All records
+                lengthChange: true,
+                lengthMenu: [[25, 50, 100, -1], [25, 50, 100, "All"]],
+                searchPanes: {
+                    cascadePanes: true,
+                    viewTotal: true,
+                },
+                dom: 'Blfrtip',
+                language: {
+                    // To enable a filter button instead of the filter row
+                    searchPanes: {
+                        clearMessage: 'Clear Filters',
+                        collapse: { 0: 'Filters', _: 'Filters (%d)' },
+                        initCollapsed: true
+
+                    }
+                },
+                buttons: [
+                    {
+                        extend: 'searchPanes',
+                        config: {
+                            cascadePanes: true,
+                            viewTotal: true,
+                            orderable: false
+                        }
+                    }
+                ],
+                columnDefs: [
+                    {
+                        searchPanes: {
+                            show: true,
+                            pagingType: 'numbers',
+                            searching: true
+                        },
+                        // Show all filters
+                        targets: [0, 1, 2, 3, 5, 7]
+                    }
+                ]
+            });
+            var maxLength = 30;
+            // ReadMore ReadLess
+            $(".show-read-more").each(function () {
+                var myStr = $(this).text();
+                if ($.trim(myStr).length > maxLength) {
+                    var newStr = myStr.substring(0, maxLength);
+                    var removedStr = myStr.substring(maxLength, $.trim(myStr).length);
+                    $(this).empty().html(newStr);
+                    $(this).append(' <a href="javascript:void(0);" class="read-more">read more...</a>');
+                    $(this).append('<span class="more-text">' + removedStr + '</span>');
+                }
+            });
+            $(".read-more").click(function () {
+                $(this).siblings(".more-text").contents().unwrap();
+                $(this).remove();
+            });
+        });
+    </script>
+</body>
+
+</html>
